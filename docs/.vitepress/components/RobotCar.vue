@@ -319,7 +319,7 @@ const animate =()=>{
     //uniforms.centerColor.value.set(random > 0.1 ? 0x00ff00 : 0xff0000); // 绿色
     uniforms.edgeColor.value.set(0xffff00);  // 黄色
     window.requestAnimationFrame(animate)
-    TWEEN.update()
+    //TWEEN.update()
 }
 
 const init = ()=>{

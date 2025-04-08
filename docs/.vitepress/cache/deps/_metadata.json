@@ -1,54 +1,54 @@
 {
-  "hash": "7f105507",
-  "browserHash": "f1b171a8",
+  "hash": "5fc584a3",
+  "browserHash": "dc7d03d1",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "1a204c37",
+      "fileHash": "bc06ecb4",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "18ab9fad",
+      "fileHash": "1706e391",
       "needsInterop": false
     },
     "three": {
       "src": "../../../../node_modules/three/build/three.module.js",
       "file": "three.js",
-      "fileHash": "cf1c6c45",
+      "fileHash": "faef81ed",
       "needsInterop": false
     },
     "three/examples/jsm/controls/OrbitControls": {
       "src": "../../../../node_modules/three/examples/jsm/controls/OrbitControls.js",
       "file": "three_examples_jsm_controls_OrbitControls.js",
-      "fileHash": "e175cc14",
+      "fileHash": "6e8d01da",
       "needsInterop": false
     },
     "@tweenjs/tween.js": {
       "src": "../../../../node_modules/@tweenjs/tween.js/dist/tween.esm.js",
       "file": "@tweenjs_tween__js.js",
-      "fileHash": "31bf8605",
-      "needsInterop": false
-    },
-    "three/addons/loaders/OBJLoader.js": {
-      "src": "../../../../node_modules/three/examples/jsm/loaders/OBJLoader.js",
-      "file": "three_addons_loaders_OBJLoader__js.js",
-      "fileHash": "b59fed8c",
-      "needsInterop": false
-    },
-    "three/addons/loaders/MTLLoader.js": {
-      "src": "../../../../node_modules/three/examples/jsm/loaders/MTLLoader.js",
-      "file": "three_addons_loaders_MTLLoader__js.js",
-      "fileHash": "86b97924",
+      "fileHash": "51988a8e",
       "needsInterop": false
     },
     "fabric": {
       "src": "../../../../node_modules/fabric/dist/fabric.js",
       "file": "fabric.js",
-      "fileHash": "bcbc2354",
+      "fileHash": "322e4cd7",
       "needsInterop": true
+    },
+    "three/addons/loaders/OBJLoader.js": {
+      "src": "../../../../node_modules/three/examples/jsm/loaders/OBJLoader.js",
+      "file": "three_addons_loaders_OBJLoader__js.js",
+      "fileHash": "4019ec6a",
+      "needsInterop": false
+    },
+    "three/addons/loaders/MTLLoader.js": {
+      "src": "../../../../node_modules/three/examples/jsm/loaders/MTLLoader.js",
+      "file": "three_addons_loaders_MTLLoader__js.js",
+      "fileHash": "fba5158c",
+      "needsInterop": false
     }
   },
   "chunks": {

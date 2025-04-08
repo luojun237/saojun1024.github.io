@@ -90,14 +90,14 @@ const initBasic = ()=>{
     el.appendChild(renderer.domElement);
 
 
-    const size = 100;
-    const divisions = 100;
+    // const size = 100;
+    // const divisions = 100;
 
-    const gridHelper = new THREE.GridHelper( size, divisions );
-    scene.add( gridHelper );
+    // const gridHelper = new THREE.GridHelper( size, divisions );
+    // scene.add( gridHelper );
 
-    const axesHelper = new THREE.AxesHelper( 5 );
-    scene.add( axesHelper );
+    // const axesHelper = new THREE.AxesHelper( 5 );
+    // scene.add( axesHelper );
 
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 1); // 颜色和强度
@@ -128,7 +128,11 @@ const initEarth = ()=>{
                 var color = new THREE.Color();
                 vec3.setFromSpherical(new THREE.Spherical(3.0,f * Math.PI,c * Math.PI * 2 - Math.PI / 2))
                 positions.push(vec3.x,vec3.y,vec3.z)
-                color.setRGB(3/255,168/255,158/255);
+                //if(vec3.x > 0){
+                    color.setRGB(3/255,168/255,158/255);
+                // } else {
+                //     color.setRGB(138/255, 43/255, 226/255);
+                // }
                 colors.push(color.r, color.g, color.b);
             }
         }
@@ -206,15 +210,44 @@ function latLongToVector3(lat, lon, radius) {
 
 // 初始化地球光柱
 const initEarthGlow = ()=>{
-    const material = new THREE.SpriteMaterial({
-        map:new THREE.TextureLoader().load( './assets/img/glow.png' ),
-        transparent:true,
-        depthWrite: true,
-        depthTest: true,
-    })
+    // 自定义着色器代码
+    const vertexShader = `
+        varying vec2 vUv;
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+    `;
 
-    const sprite = new THREE.Sprite(material)
-    sprite.scale.set(11.4,11.4,1);
+    const fragmentShader = `
+        varying vec2 vUv;
+        void main() {
+            vec2 center = vec2(0.5, 0.5);
+            float dist = distance(vUv, center);
+            if(dist < 0.5) {
+                gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0); // 蓝色渐变圆
+            } else {
+                gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+            }
+        }
+    `;
+
+    const material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        transparent: false,
+        depthWrite: true,
+        depthTest: true
+    });
+
+    const sprite = new THREE.Sprite(material);
+    sprite.position.set(0,0,0)
+    sprite.scale.set(7.5, 7.5, 1);
+    // 添加onBeforeRender回调,在每一帧渲染前更新sprite的朝向
+    sprite.onBeforeRender = function(renderer, scene, camera) {
+        // 让sprite始终面向相机
+        sprite.quaternion.copy(camera.quaternion);
+    };
     scene.add(sprite);
 }
 
@@ -223,10 +256,11 @@ const initLines = ()=>{
     const radius = 3.5;  // 地球的半径
     const beijing = latLongToVector3(39.9042, 116.4074, radius);
     const london = latLongToVector3(51.5074, -0.1278, radius);
+    const r = 3.8
     const curve = new THREE.CatmullRomCurve3([
-        beijing,
-        beijing.clone().lerp(london, 0.5).normalize().multiplyScalar(radius+1),  // 中间抬高点
-        london,
+        new THREE.Vector3(0, r, 0),
+        new THREE.Vector3(r+2, 0, 0),
+        new THREE.Vector3(0, -r, 0)
     ]);
 
     const points = curve.getPoints(50);
@@ -329,13 +363,11 @@ var shaderMaterial = new THREE.ShaderMaterial({
 
 onMounted(async ()=>{
     await loadAllImage()
-   
     initBasic()
     initControl()
     initEarth()
     //initStars()
     // 初始地球光晕
-    //initEarthGlow()
     initEarthGlow()
     initLines()
     // 初始月亮

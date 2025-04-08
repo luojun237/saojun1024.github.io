@@ -1,7 +1,7 @@
 module.exports = {
     title:'前端Sam哥',
     description: 'A VitePress site',
-    appareance:true,
+    appearance: 'light',
     themeConfig:{
         nav:[
             { text: '首页', link: '/',activeMatch: '/'  },
